@@ -16,6 +16,13 @@ var conventionalDirs = []string{
 	"typo3conf/ext",
 }
 
+// Files to ignore when detecting packages
+var ignoredFiles = map[string]bool{
+	".DS_Store":  true,
+	".gitignore": true,
+	".gitkeep":   true,
+}
+
 // DetectDevPaths finds all development directories in a project
 func DetectDevPaths(projectPath string) ([]model.DevPath, error) {
 	var devPaths []model.DevPath
@@ -57,15 +64,29 @@ func detectComposerPaths(projectPath string) ([]model.DevPath, error) {
 	}
 
 	for _, p := range paths {
+		// Skip container-only paths (not accessible on host)
+		if strings.HasPrefix(p, "/var/www/") {
+			continue
+		}
+
 		absPath := p
 		if !filepath.IsAbs(p) {
 			absPath = filepath.Join(projectPath, p)
+		}
+
+		// Skip ignored files
+		if ignoredFiles[filepath.Base(absPath)] {
+			continue
 		}
 
 		// Handle glob patterns
 		if strings.Contains(absPath, "*") {
 			matches, _ := filepath.Glob(absPath)
 			for _, match := range matches {
+				// Skip ignored files in glob matches
+				if ignoredFiles[filepath.Base(match)] {
+					continue
+				}
 				packages := findPackagesInDir(match)
 				devPaths = append(devPaths, model.DevPath{
 					Path:     match,
@@ -134,6 +155,11 @@ func detectSymlinks(projectPath string) ([]model.DevPath, error) {
 			}
 			absTarget, _ = filepath.Abs(absTarget)
 
+			// Skip container-only paths
+			if strings.HasPrefix(absTarget, "/var/www/") {
+				return nil
+			}
+
 			// Check if target is outside vendor
 			if !strings.HasPrefix(absTarget, vendorPath) {
 				relPath, _ := filepath.Rel(projectPath, path)
@@ -175,15 +201,51 @@ func findPackagesInDir(dir string) []string {
 	return packages
 }
 
+// typePriority returns priority for deduplication (lower = higher priority)
+func typePriority(t string) int {
+	switch t {
+	case "composer-path":
+		return 1
+	case "symlink":
+		return 2
+	case "mount":
+		return 3
+	case "convention":
+		return 4
+	default:
+		return 5
+	}
+}
+
 func deduplicatePaths(paths []model.DevPath) []model.DevPath {
-	seen := make(map[string]bool)
-	var result []model.DevPath
+	seen := make(map[string]model.DevPath)
 
 	for _, p := range paths {
-		if !seen[p.Path] {
-			seen[p.Path] = true
-			result = append(result, p)
+		existing, exists := seen[p.Path]
+		if !exists {
+			seen[p.Path] = p
+		} else if typePriority(p.Type) < typePriority(existing.Type) {
+			// Keep the one with higher priority (lower number)
+			seen[p.Path] = p
 		}
+	}
+
+	// Also remove convention entries if their parent directory content
+	// is already covered by a more specific type
+	parentCovered := make(map[string]bool)
+	for path, dp := range seen {
+		if dp.Type != "convention" {
+			parentCovered[filepath.Dir(path)] = true
+		}
+	}
+
+	var result []model.DevPath
+	for _, dp := range seen {
+		// Skip convention entries if a child path is already covered
+		if dp.Type == "convention" && parentCovered[dp.Path] {
+			continue
+		}
+		result = append(result, dp)
 	}
 
 	return result

@@ -29,19 +29,20 @@ func (f *TextFormatter) Format(project *model.Project) (string, error) {
 
 	// Basic info
 	sb.WriteString(label.Sprint("Type:       "))
-	sb.WriteString(value.Sprintf("%s\n", project.Type))
+	sb.WriteString(value.Sprintf("%s\n", valueOrDash(project.Type)))
 
 	sb.WriteString(label.Sprint("Path:       "))
-	sb.WriteString(value.Sprintf("%s\n", project.Path))
+	sb.WriteString(value.Sprintf("%s\n", valueOrDash(project.Path)))
 
 	sb.WriteString(label.Sprint("PHP:        "))
-	sb.WriteString(value.Sprintf("%s\n", project.PHPVersion))
+	sb.WriteString(value.Sprintf("%s\n", valueOrDash(project.PHPVersion)))
 
 	sb.WriteString(label.Sprint("Webserver:  "))
-	sb.WriteString(value.Sprintf("%s\n", project.Webserver))
+	sb.WriteString(value.Sprintf("%s\n", valueOrDash(project.Webserver)))
 
 	sb.WriteString(label.Sprint("Database:   "))
-	sb.WriteString(value.Sprintf("%s %s\n", project.Database.Type, project.Database.Version))
+	dbStr := strings.TrimSpace(project.Database.Type + " " + project.Database.Version)
+	sb.WriteString(value.Sprintf("%s\n", valueOrDash(dbStr)))
 
 	if project.NodeJS != "" {
 		sb.WriteString(label.Sprint("Node.js:    "))
@@ -117,4 +118,11 @@ func getTypeIcon(t string) string {
 	default:
 		return "*"
 	}
+}
+
+func valueOrDash(s string) string {
+	if s == "" {
+		return "-"
+	}
+	return s
 }

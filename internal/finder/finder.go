@@ -4,6 +4,7 @@ import (
 	"errors"
 	"os"
 	"path/filepath"
+	"sort"
 
 	"gopkg.in/yaml.v3"
 )
@@ -69,6 +70,9 @@ func FindAllProjects() ([]string, error) {
 			paths = append(paths, entry.AppRoot)
 		}
 	}
+
+	// Sort paths alphabetically
+	sort.Strings(paths)
 
 	return paths, nil
 }
