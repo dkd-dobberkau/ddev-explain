@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/ochorocho/ddev-explain/internal/model"
+	"github.com/dkd-dobberkau/ddev-explain/internal/model"
 	"gopkg.in/yaml.v3"
 )
 

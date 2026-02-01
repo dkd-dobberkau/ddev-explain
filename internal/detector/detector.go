@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/ochorocho/ddev-explain/internal/composer"
-	"github.com/ochorocho/ddev-explain/internal/model"
+	"github.com/dkd-dobberkau/ddev-explain/internal/composer"
+	"github.com/dkd-dobberkau/ddev-explain/internal/model"
 )
 
 var conventionalDirs = []string{

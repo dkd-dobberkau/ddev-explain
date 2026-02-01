@@ -5,7 +5,7 @@ A CLI tool that summarizes DDEV project configurations with focus on development
 ## Installation
 
 ```bash
-go install github.com/ochorocho/ddev-explain@latest
+go install github.com/dkd-dobberkau/ddev-explain@latest
 ```
 
 ## Usage

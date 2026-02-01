@@ -1,6 +1,6 @@
 package output
 
-import "github.com/ochorocho/ddev-explain/internal/model"
+import "github.com/dkd-dobberkau/ddev-explain/internal/model"
 
 // Formatter defines the interface for output formatters
 type Formatter interface {

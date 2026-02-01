@@ -3,7 +3,7 @@ package output
 import (
 	"encoding/json"
 
-	"github.com/ochorocho/ddev-explain/internal/model"
+	"github.com/dkd-dobberkau/ddev-explain/internal/model"
 )
 
 type JSONFormatter struct{}

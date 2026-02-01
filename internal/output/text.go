@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/ochorocho/ddev-explain/internal/model"
+	"github.com/dkd-dobberkau/ddev-explain/internal/model"
 )
 
 type TextFormatter struct {

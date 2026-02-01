@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/ochorocho/ddev-explain/internal/model"
+	"github.com/dkd-dobberkau/ddev-explain/internal/model"
 )
 
 // DetectCommands finds custom DDEV commands in .ddev/commands/

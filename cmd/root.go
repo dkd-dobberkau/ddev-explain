@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ochorocho/ddev-explain/internal/ddev"
-	"github.com/ochorocho/ddev-explain/internal/detector"
-	"github.com/ochorocho/ddev-explain/internal/finder"
-	"github.com/ochorocho/ddev-explain/internal/model"
-	"github.com/ochorocho/ddev-explain/internal/output"
+	"github.com/dkd-dobberkau/ddev-explain/internal/ddev"
+	"github.com/dkd-dobberkau/ddev-explain/internal/detector"
+	"github.com/dkd-dobberkau/ddev-explain/internal/finder"
+	"github.com/dkd-dobberkau/ddev-explain/internal/model"
+	"github.com/dkd-dobberkau/ddev-explain/internal/output"
 	"github.com/spf13/cobra"
 )
 

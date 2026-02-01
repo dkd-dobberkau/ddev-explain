@@ -1,0 +1,16 @@
+mode: set
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:21.66,25.16 3 1
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:25.16,26.25 1 1
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:26.25,28.4 1 1
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:29.3,29.18 1 0
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:32.2,33.56 2 1
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:33.56,35.3 1 0
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:37.2,38.45 2 1
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:38.45,39.26 1 1
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:39.26,41.4 1 1
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:44.2,44.19 1 1
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:48.57,52.16 3 0
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:52.16,54.3 1 0
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:56.2,57.56 2 0
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:57.56,59.3 1 0
+github.com/ochorocho/ddev-explain/internal/composer/composer.go:61.2,61.27 1 0
