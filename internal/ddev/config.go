@@ -79,5 +79,11 @@ func ParseConfig(projectPath string) (*model.Project, error) {
 		project.Services = services
 	}
 
+	// Detect commands
+	commands, err := DetectCommands(projectPath)
+	if err == nil {
+		project.Commands = commands
+	}
+
 	return project, nil
 }
