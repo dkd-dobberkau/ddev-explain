@@ -36,6 +36,12 @@ func DetectDevPaths(projectPath string) ([]model.DevPath, error) {
 		devPaths = append(devPaths, symlinkPaths...)
 	}
 
+	// 4. Docker mounts
+	mountPaths, err := detectMounts(projectPath)
+	if err == nil {
+		devPaths = append(devPaths, mountPaths...)
+	}
+
 	// Deduplicate
 	devPaths = deduplicatePaths(devPaths)
 
