@@ -14,7 +14,7 @@ go install github.com/ochorocho/ddev-explain@latest
 # In a DDEV project directory
 ddev-explain
 
-# Show all projects
+# Show all projects (note: not fully implemented yet)
 ddev-explain --all
 
 # Different output formats

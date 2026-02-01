@@ -7,6 +7,7 @@ import (
 	"github.com/ochorocho/ddev-explain/internal/ddev"
 	"github.com/ochorocho/ddev-explain/internal/detector"
 	"github.com/ochorocho/ddev-explain/internal/finder"
+	"github.com/ochorocho/ddev-explain/internal/model"
 	"github.com/ochorocho/ddev-explain/internal/output"
 	"github.com/spf13/cobra"
 )
@@ -77,6 +78,15 @@ func runExplain(cmd *cobra.Command, args []string) error {
 		devPaths, err := detector.DetectDevPaths(projectPath)
 		if err == nil {
 			project.DevPaths = devPaths
+		}
+
+		// If --dev-paths, only show development paths
+		if devPathsFlag {
+			project = &model.Project{
+				Name:     project.Name,
+				Path:     project.Path,
+				DevPaths: project.DevPaths,
+			}
 		}
 
 		// Format output
